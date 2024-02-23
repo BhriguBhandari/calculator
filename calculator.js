@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const clearButton = document.querySelector(".clear");
   const operatorButtons = document.querySelectorAll(".operator");
   const equalButton = document.querySelector(".operator");
+  const percentageButton = document.querySelector(".first-row-percentage");
+  const plusMinusButton = document.querySelector(".first-row-change");
 
   let currentInput = "0";
   let firstOperand = null;
@@ -61,6 +63,17 @@ document.addEventListener("DOMContentLoaded", function () {
     operator = nextOperator;
   }
 
+  function calculatePercentage() {
+    const percentageValue = parseFloat(currentInput) / 100;
+    currentInput = String(percentageValue);
+    updateDisplay();
+  }
+
+  function toggleSign() {
+    currentInput = String(-parseFloat(currentInput));
+    updateDisplay();
+  }
+
   const performCalculation = {
     "/": (firstOperand, secondOperand) => firstOperand / secondOperand,
     X: (firstOperand, secondOperand) => firstOperand * secondOperand,
@@ -95,4 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   });
+
+  percentageButton.addEventListener("click", calculatePercentage);
+  plusMinusButton.addEventListener("click", toggleSign);
 });
